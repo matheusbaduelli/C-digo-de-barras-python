@@ -5,6 +5,10 @@ import io
 
 app = Flask(__name__)
 
+@app.route("/", methods=["GET"])
+def home():
+    return "API funcionando", 200
+
 @app.route("/barcode", methods=["GET"])
 def gerar_barcode():
     texto = request.args.get("text")
