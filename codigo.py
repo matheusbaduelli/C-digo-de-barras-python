@@ -30,5 +30,4 @@ def gerar_barcode():
         download_name="barcode.png"
     )
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+# Vercel usa serverless functions, não precisa do app.run()
