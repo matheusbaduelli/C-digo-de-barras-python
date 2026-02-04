@@ -16,11 +16,9 @@ def gerar_barcode():
         abort(400, "Parâmetro 'text' é obrigatório")
 
     code = barcode.get("code128", texto, writer=ImageWriter())
+
     buffer = io.BytesIO()
     code.write(buffer)
     buffer.seek(0)
 
     return send_file(buffer, mimetype="image/png")
-
-# 👇 ESSENCIAL para Vercel
-app = app
