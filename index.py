@@ -5,30 +5,22 @@ import io
 
 app = Flask(__name__)
 
-# 👉 GET na raiz do projeto
-@app.route("/", methods=["GET"])
+@app.route("/")
 def home():
-    return "API funcionando", 200
+    return "API funcionando"
 
-
-# 👉 Endpoint para gerar código de barras
-@app.route("/barcode", methods=["GET"])
+@app.route("/barcode")
 def gerar_barcode():
     texto = request.args.get("text")
-
     if not texto:
         abort(400, "Parâmetro 'text' é obrigatório")
 
     code = barcode.get("code128", texto, writer=ImageWriter())
-
     buffer = io.BytesIO()
     code.write(buffer)
     buffer.seek(0)
 
-    return send_file(
-        buffer,
-        mimetype="image/png",
-        as_attachment=False,
-        download_name="barcode.png"
-    )
+    return send_file(buffer, mimetype="image/png")
 
+# 👇 ESSENCIAL para Vercel
+app = app
